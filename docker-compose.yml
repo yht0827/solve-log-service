@@ -17,20 +17,5 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
-    build: .
-    container_name: solve-log-app
-    environment:
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE: solve_log_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-    ports:
-      - "8080:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
-
 volumes:
   mysql-data:
