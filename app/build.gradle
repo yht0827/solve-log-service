@@ -1,0 +1,16 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':application')
+    implementation project(':infrastructure')
+    implementation project(':api')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+}
+
+bootJar { enabled = true }
+jar { enabled = false }
