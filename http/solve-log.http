@@ -1,0 +1,26 @@
+### 기본 URL 설정
+@baseUrl = http://localhost:8080
+
+###
+# @name 풀이 상세 조회 - 정답률 30명 이상 (문제1, user1이 풀이 이력 있음)
+GET {{baseUrl}}/api/v1/solve-logs/1?userId=1
+
+###
+# @name 풀이 상세 조회 - 문제2
+GET {{baseUrl}}/api/v1/solve-logs/2?userId=1
+
+###
+# @name 풀이 상세 조회 - 주관식 문제3
+GET {{baseUrl}}/api/v1/solve-logs/3?userId=1
+
+###
+# @name 풀이 상세 조회 - 풀이 이력 없음 (404 예상)
+GET {{baseUrl}}/api/v1/solve-logs/4?userId=1
+
+###
+# @name 풀이 상세 조회 - 존재하지 않는 문제 (404 예상)
+GET {{baseUrl}}/api/v1/solve-logs/999?userId=1
+
+###
+# @name 풀이 상세 조회 - 유효성 검사 실패 (userId 0)
+GET {{baseUrl}}/api/v1/solve-logs/1?userId=0
