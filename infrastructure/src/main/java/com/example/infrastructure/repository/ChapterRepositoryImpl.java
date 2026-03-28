@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-class ChapterRepositoryImpl implements ChapterRepository {
+public class ChapterRepositoryImpl implements ChapterRepository {
 
 	private final ChapterJpaRepository jpaRepository;
 

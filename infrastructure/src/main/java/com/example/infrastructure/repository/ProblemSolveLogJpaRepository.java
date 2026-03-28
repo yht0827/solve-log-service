@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.domain.entity.ProblemSolveLog;
 import com.example.domain.enums.AnswerStatus;
 
-interface ProblemSolveLogJpaRepository extends JpaRepository<ProblemSolveLog, Long> {
+public interface ProblemSolveLogJpaRepository extends JpaRepository<ProblemSolveLog, Long> {
 
 	@Query("SELECT psl.problemId FROM ProblemSolveLog psl WHERE psl.userId = :userId")
 	List<Long> findSolvedProblemIdsByUserId(@Param("userId") Long userId);

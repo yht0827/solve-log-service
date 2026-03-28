@@ -24,12 +24,15 @@ public class SolveLogQueryService implements GetSolveDetailUseCase {
 
 	@Transactional(readOnly = true)
 	public SolveDetailResult getSolveDetail(Long userId, Long problemId) {
+		// 문제 존재 확인
 		Problem problem = problemRepository.findById(problemId)
 			.orElseThrow(ProblemNotFoundException::new);
 
+		// 해당 유저의 풀이 이력 조회
 		ProblemSolveLog solveLog = problemSolveLogRepository.findByUserIdAndProblemId(userId, problemId)
 			.orElseThrow(SolveLogNotFoundException::new);
 
+		// 정답률 계산
 		long totalSolvers = problemSolveLogRepository.countDistinctUsersByProblemId(problemId);
 		long correctCount = problemSolveLogRepository.countByProblemIdAndAnswerStatus(problemId, AnswerStatus.CORRECT);
 		Integer correctRate = Problem.correctRate(totalSolvers, correctCount);

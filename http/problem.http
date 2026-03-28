@@ -1,58 +1,25 @@
-### 기본 URL 설정
-@baseUrl = http://localhost:8080
+### 랜덤 문제 조회 - 한국사 기초 (chapterId=1)
+GET {{baseUrl}}/api/v1/problems/random?chapterId=1&userId=1
 
-###
-# @name 랜덤 문제 조회 - 한국사 기초 (chapterId=1)
-POST {{baseUrl}}/api/v1/problems/random
+### 랜덤 문제 조회 - 세계 지리 (chapterId=2)
+GET {{baseUrl}}/api/v1/problems/random?chapterId=2&userId=1
+
+### 랜덤 문제 조회 - 존재하지 않는 단원 (404 예상)
+GET {{baseUrl}}/api/v1/problems/random?chapterId=999&userId=1
+
+### 랜덤 문제 조회 - 유효성 검사 실패 (chapterId 누락, 400 예상)
+GET {{baseUrl}}/api/v1/problems/random?userId=1
+
+### 문제 건너뛰기 - 문제1 스킵 (chapterId=1)
+POST {{baseUrl}}/api/v1/problems/1/skip
 Content-Type: application/json
 
 {
-  "chapterId": 1,
-  "userId": 1
-}
-
-###
-# @name 랜덤 문제 조회 - 세계 지리 (chapterId=2)
-POST {{baseUrl}}/api/v1/problems/random
-Content-Type: application/json
-
-{
-  "chapterId": 2,
-  "userId": 1
-}
-
-###
-# @name 랜덤 문제 조회 - 문제 건너뛰기 (skipProblemId 포함)
-POST {{baseUrl}}/api/v1/problems/random
-Content-Type: application/json
-
-{
-  "chapterId": 1,
   "userId": 1,
-  "skipProblemId": 1
+  "chapterId": 1
 }
 
-###
-# @name 랜덤 문제 조회 - 존재하지 않는 단원
-POST {{baseUrl}}/api/v1/problems/random
-Content-Type: application/json
-
-{
-  "chapterId": 999,
-  "userId": 1
-}
-
-###
-# @name 랜덤 문제 조회 - 유효성 검사 실패 (chapterId 누락)
-POST {{baseUrl}}/api/v1/problems/random
-Content-Type: application/json
-
-{
-  "userId": 1
-}
-
-###
-# @name 문제 제출 - 객관식 정답 (문제1: 조선 시대 왕이 아닌 인물 → 광개토대왕)
+### 문제 제출 - 단일선택 정답 (문제1: 조선 시대 왕이 아닌 인물 → 2번 광개토대왕)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -64,8 +31,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 객관식 오답
+### 문제 제출 - 단일선택 오답
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -77,8 +43,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 복수 정답 (문제2: 독립운동가 → 유관순, 안중근, 윤봉길)
+### 문제 제출 - 복수선택 정답 (문제2: 독립운동가 → 1·2·4번)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -92,8 +57,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 복수 정답 부분 정답 (정답 일부만 선택)
+### 문제 제출 - 복수선택 부분 오답 (일부만 선택)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -106,8 +70,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 복수 정답 부분 정답 (정답+오답 혼합)
+### 문제 제출 - 복수선택 부분 오답 (정답+오답 혼합)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -120,8 +83,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 주관식 정답 (문제3: 3·1운동 연도)
+### 문제 제출 - 주관식 정답 (문제3: 3·1운동 연도 → 1919)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -133,8 +95,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 주관식 오답
+### 문제 제출 - 주관식 오답
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -146,8 +107,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 주관식 정답 (문제5: 세계에서 가장 넓은 나라)
+### 문제 제출 - 주관식 정답 (문제5: 세계에서 가장 넓은 나라 → 러시아)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 
@@ -159,8 +119,7 @@ Content-Type: application/json
   ]
 }
 
-###
-# @name 문제 제출 - 존재하지 않는 문제
+### 문제 제출 - 존재하지 않는 문제 (404 예상)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
 

@@ -4,5 +4,5 @@ import com.example.application.dto.ProblemQueryResult;
 
 public interface GetRandomProblemUseCase {
 
-	ProblemQueryResult getRandomProblem(Long chapterId, Long userId, Long skipProblemId);
+	ProblemQueryResult getRandomProblem(Long chapterId, Long userId);
 }

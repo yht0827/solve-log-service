@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-class UserProblemSkipRepositoryImpl implements UserProblemSkipRepository {
+public class UserProblemSkipRepositoryImpl implements UserProblemSkipRepository {
 
 	private final UserProblemSkipJpaRepository jpaRepository;
 

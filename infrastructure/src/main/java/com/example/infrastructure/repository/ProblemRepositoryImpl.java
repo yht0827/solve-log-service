@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-class ProblemRepositoryImpl implements ProblemRepository {
+public class ProblemRepositoryImpl implements ProblemRepository {
 
 	private final ProblemJpaRepository jpaRepository;
 
