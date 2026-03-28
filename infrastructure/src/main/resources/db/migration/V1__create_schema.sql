@@ -53,13 +53,14 @@ CREATE TABLE problem_solve_log
     answer_status VARCHAR(20) NOT NULL,
     created_at    DATETIME(6) NOT NULL,
     updated_at    DATETIME(6) NOT NULL,
+    CONSTRAINT uq_solve_log_user_problem UNIQUE (user_id, problem_id),
     CONSTRAINT fk_solve_log_user FOREIGN KEY (user_id) REFERENCES users (id),
     CONSTRAINT fk_solve_log_problem FOREIGN KEY (problem_id) REFERENCES problem (id)
 );
 
 CREATE INDEX idx_solve_log_user_id ON problem_solve_log (user_id);
 CREATE INDEX idx_solve_log_problem_id ON problem_solve_log (problem_id);
-CREATE INDEX idx_solve_log_user_problem ON problem_solve_log (user_id, problem_id);
+CREATE INDEX idx_solve_log_problem_status ON problem_solve_log (problem_id, answer_status);
 
 CREATE TABLE user_answer
 (

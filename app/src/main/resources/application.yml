@@ -19,5 +19,14 @@ springdoc:
   api-docs:
     path: /api-docs
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics
+  metrics:
+    enable:
+      hikaricp: true
+
 server:
   port: 8080
