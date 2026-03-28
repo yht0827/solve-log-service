@@ -1,7 +1,7 @@
 package com.example.domain.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,10 +50,10 @@ public class Problem extends BaseTimeEntity {
 
 	@OneToMany(mappedBy = "problem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OrderBy("sequence ASC")
-	private List<Choice> choices = new ArrayList<>();
+	private Set<Choice> choices = new LinkedHashSet<>();
 
 	@OneToMany(mappedBy = "problem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<ProblemAnswer> answers = new ArrayList<>();
+	private Set<ProblemAnswer> answers = new HashSet<>();
 
 	/** 정답 값 목록을 반환한다. */
 	public List<String> getCorrectAnswerValues() {

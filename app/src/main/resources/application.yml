@@ -7,10 +7,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
     show-sql: true
     open-in-view: false
   flyway:

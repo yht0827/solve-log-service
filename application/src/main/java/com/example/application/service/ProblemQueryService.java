@@ -44,7 +44,7 @@ public class ProblemQueryService implements GetRandomProblemUseCase {
 		// 이미 푼 문제 ID 목록
 		Set<Long> solvedProblemIds = new HashSet<>(problemSolveLogRepository.findSolvedProblemIdsByUserId(userId));
 
-		// 마지막으로 건너뛴 문제 ID (없으면 null)
+		// 마지막으로 건너뛴 문제 ID
 		Long lastSkippedProblemId = userProblemSkipRepository.findByUserIdAndChapterId(userId, chapterId)
 			.map(UserProblemSkip::getProblemId)
 			.orElse(null);
