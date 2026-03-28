@@ -9,11 +9,11 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import jakarta.validation.ConstraintViolationException;
-
 import com.example.api.response.ErrorResponse;
 import com.example.domain.exception.DomainException;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException e) {
 		String message = e.getConstraintViolations().stream()
-			.map(v -> v.getMessage())
+			.map(ConstraintViolation::getMessage)
 			.findFirst()
 			.orElse(ErrorCode.INVALID_INPUT.getMessage());
 		return toResponseEntity(ErrorCode.INVALID_INPUT, message);

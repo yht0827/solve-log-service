@@ -11,10 +11,11 @@ GET {{baseUrl}}/api/v1/problems/random?chapterId=999&userId=1
 GET {{baseUrl}}/api/v1/problems/random?userId=1
 
 ### 문제 건너뛰기 - 문제1 스킵 (chapterId=1)
-POST {{baseUrl}}/api/v1/problems/1/skip
+POST {{baseUrl}}/api/v1/problems/skip
 Content-Type: application/json
 
 {
+  "problemId": 1,
   "userId": 1,
   "chapterId": 1
 }

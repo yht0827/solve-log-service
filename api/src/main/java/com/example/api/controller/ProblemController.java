@@ -3,14 +3,14 @@ package com.example.api.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.api.request.RandomProblemRequest;
 import com.example.api.request.SkipProblemRequest;
 import com.example.api.request.SubmitAnswerRequest;
 import com.example.api.response.RandomProblemResponse;
@@ -35,19 +35,18 @@ public class ProblemController {
 	@Operation(summary = "랜덤 문제 조회", description = "단원별 랜덤 문제를 조회합니다.")
 	@GetMapping("/random")
 	public ResponseEntity<RandomProblemResponse> getRandomProblem(
-		@RequestParam Long chapterId,
-		@RequestParam Long userId
+		@ModelAttribute @Valid RandomProblemRequest request
 	) {
 		return ResponseEntity.ok(RandomProblemResponse.from(
-			getRandomProblemUseCase.getRandomProblem(chapterId, userId)
+			getRandomProblemUseCase.getRandomProblem(request.chapterId(), request.userId())
 		));
 	}
 
 	@Operation(summary = "문제 건너뛰기", description = "현재 문제를 건너뜁니다.")
-	@PostMapping("/{id}/skip")
+	@PostMapping("/skip")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void skipProblem(@PathVariable Long id, @Valid @RequestBody SkipProblemRequest request) {
-		problemCommandUseCase.skipProblem(request.userId(), request.chapterId(), id);
+	public void skipProblem(@Valid @RequestBody SkipProblemRequest request) {
+		problemCommandUseCase.skipProblem(request.userId(), request.chapterId(), request.problemId());
 	}
 
 	@Operation(summary = "문제 제출", description = "문제의 답안을 제출합니다.")
