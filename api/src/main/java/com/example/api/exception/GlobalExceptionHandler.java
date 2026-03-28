@@ -2,6 +2,7 @@ package com.example.api.exception;
 
 import java.util.Objects;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -48,6 +49,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(NoAvailableProblemException.class)
 	public ResponseEntity<ErrorResponse> handleNoAvailableProblem(NoAvailableProblemException e) {
 		return toResponseEntity(ErrorCode.NO_AVAILABLE_PROBLEM, e.getMessage());
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ErrorResponse> handleDataIntegrityViolation(DataIntegrityViolationException e) {
+		return toResponseEntity(ErrorCode.ALREADY_SOLVED, ErrorCode.ALREADY_SOLVED.getMessage());
 	}
 
 	@ExceptionHandler(MissingRequestHeaderException.class)
