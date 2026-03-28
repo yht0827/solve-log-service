@@ -28,8 +28,13 @@ public class ProblemSolveLogRepositoryImpl implements ProblemSolveLogRepository 
 	}
 
 	@Override
+	public boolean existsByUserIdAndProblemId(Long userId, Long problemId) {
+		return jpaRepository.existsByUserIdAndProblemId(userId, problemId);
+	}
+
+	@Override
 	public Optional<ProblemSolveLog> findByUserIdAndProblemId(Long userId, Long problemId) {
-		return jpaRepository.findTopByUserIdAndProblemIdOrderByIdDesc(userId, problemId);
+		return jpaRepository.findByUserIdAndProblemId(userId, problemId);
 	}
 
 	@Override

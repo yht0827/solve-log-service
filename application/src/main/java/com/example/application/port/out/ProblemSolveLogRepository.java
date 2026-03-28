@@ -12,6 +12,8 @@ public interface ProblemSolveLogRepository {
 
 	List<Long> findSolvedProblemIdsByUserIdAndChapterId(Long userId, Long chapterId);
 
+	boolean existsByUserIdAndProblemId(Long userId, Long problemId);
+
 	Optional<ProblemSolveLog> findByUserIdAndProblemId(Long userId, Long problemId);
 
 	long countDistinctUsersByProblemId(long problemId);

@@ -15,6 +15,7 @@ import com.example.domain.entity.ProblemSolveLog;
 import com.example.domain.entity.UserAnswer;
 import com.example.domain.entity.UserProblemSkip;
 import com.example.domain.enums.AnswerStatus;
+import com.example.domain.exception.AlreadySolvedException;
 import com.example.domain.exception.ProblemNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,11 @@ public class ProblemCommandService implements ProblemCommandUseCase {
 
 	@Transactional
 	public SubmitResult submitAnswer(Long problemId, Long userId, List<String> userAnswers) {
+		// 중복 제출 방지
+		if (problemSolveLogRepository.existsByUserIdAndProblemId(userId, problemId)) {
+			throw new AlreadySolvedException();
+		}
+
 		// 문제 존재 확인
 		Problem problem = problemRepository.findById(problemId)
 			.orElseThrow(ProblemNotFoundException::new);

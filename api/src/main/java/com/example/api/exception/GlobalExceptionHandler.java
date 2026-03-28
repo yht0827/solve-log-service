@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.api.response.ErrorResponse;
+import com.example.domain.exception.AlreadySolvedException;
 import com.example.domain.exception.ChapterNotFoundException;
 import com.example.domain.exception.NoAvailableProblemException;
 import com.example.domain.exception.ProblemNotFoundException;
@@ -23,6 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+	@ExceptionHandler(AlreadySolvedException.class)
+	public ResponseEntity<ErrorResponse> handleAlreadySolved(AlreadySolvedException e) {
+		return toResponseEntity(ErrorCode.ALREADY_SOLVED, e.getMessage());
+	}
 
 	@ExceptionHandler(ProblemNotFoundException.class)
 	public ResponseEntity<ErrorResponse> handleProblemNotFound(ProblemNotFoundException e) {
