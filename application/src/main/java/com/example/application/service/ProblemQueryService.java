@@ -35,9 +35,18 @@ public class ProblemQueryService implements GetRandomProblemUseCase {
 
 	public ProblemQueryResult getRandomProblem(Long chapterId, Long userId) {
 		// 단원 존재 확인
-		chapterRepository.findById(chapterId)
-			.orElseThrow(ChapterNotFoundException::new);
+		chapterRepository.findById(chapterId).orElseThrow(ChapterNotFoundException::new);
 
+		// 풀 수 있는 문제 중 랜덤 선택
+		Problem selected = selectRandomAvailableProblem(chapterId, userId);
+
+		// 정답률 계산
+		Integer correctRate = resolveCorrectRate(selected.getId());
+
+		return ProblemQueryResult.of(selected, correctRate);
+	}
+
+	private Problem selectRandomAvailableProblem(Long chapterId, Long userId) {
 		// 단원 전체 문제 조회
 		List<Problem> allProblems = problemRepository.findByChapterId(chapterId);
 
@@ -50,21 +59,19 @@ public class ProblemQueryService implements GetRandomProblemUseCase {
 			.map(UserProblemSkip::getProblemId)
 			.orElse(null);
 
-		// 풀었거나 건너뛴 문제 제외
+		// 풀었거나 건너뛴 문제 제외 후 랜덤 선택
 		List<Problem> available = Problem.filterAvailable(allProblems, solvedProblemIds, lastSkippedProblemId);
 		if (available.isEmpty()) {
 			throw new NoAvailableProblemException();
 		}
 
-		// 랜덤 선택
-		Problem selected = available.get(random.nextInt(available.size()));
+		return available.get(random.nextInt(available.size()));
+	}
 
-		// 정답률 계산
-		long totalSolvers = problemSolveLogRepository.countDistinctUsersByProblemId(selected.getId());
-		long correctCount = problemSolveLogRepository.countByProblemIdAndAnswerStatus(selected.getId(),
-			AnswerStatus.CORRECT);
-		Integer correctRate = Problem.correctRate(totalSolvers, correctCount);
-
-		return ProblemQueryResult.of(selected, correctRate);
+	private Integer resolveCorrectRate(Long problemId) {
+		// 정답률 계산 (30명 이상 풀어야 노출)
+		long totalSolvers = problemSolveLogRepository.countDistinctUsersByProblemId(problemId);
+		long correctCount = problemSolveLogRepository.countByProblemIdAndAnswerStatus(problemId, AnswerStatus.CORRECT);
+		return Problem.correctRate(totalSolvers, correctCount);
 	}
 }
