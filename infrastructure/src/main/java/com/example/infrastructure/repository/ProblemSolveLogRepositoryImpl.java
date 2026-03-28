@@ -23,8 +23,8 @@ public class ProblemSolveLogRepositoryImpl implements ProblemSolveLogRepository 
 	}
 
 	@Override
-	public List<Long> findSolvedProblemIdsByUserId(Long userId) {
-		return jpaRepository.findSolvedProblemIdsByUserId(userId);
+	public List<Long> findSolvedProblemIdsByUserIdAndChapterId(Long userId, Long chapterId) {
+		return jpaRepository.findSolvedProblemIdsByUserIdAndChapterId(userId, chapterId);
 	}
 
 	@Override

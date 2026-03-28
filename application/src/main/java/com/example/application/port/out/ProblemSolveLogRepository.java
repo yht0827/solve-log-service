@@ -10,7 +10,7 @@ public interface ProblemSolveLogRepository {
 
 	ProblemSolveLog save(ProblemSolveLog solveLog);
 
-	List<Long> findSolvedProblemIdsByUserId(Long userId);
+	List<Long> findSolvedProblemIdsByUserIdAndChapterId(Long userId, Long chapterId);
 
 	Optional<ProblemSolveLog> findByUserIdAndProblemId(Long userId, Long problemId);
 

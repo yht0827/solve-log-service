@@ -12,8 +12,8 @@ import com.example.domain.enums.AnswerStatus;
 
 public interface ProblemSolveLogJpaRepository extends JpaRepository<ProblemSolveLog, Long> {
 
-	@Query("SELECT psl.problemId FROM ProblemSolveLog psl WHERE psl.userId = :userId")
-	List<Long> findSolvedProblemIdsByUserId(@Param("userId") Long userId);
+	@Query("SELECT DISTINCT psl.problemId FROM ProblemSolveLog psl WHERE psl.userId = :userId AND psl.problemId IN (SELECT p.id FROM Problem p WHERE p.chapterId = :chapterId)")
+	List<Long> findSolvedProblemIdsByUserIdAndChapterId(@Param("userId") Long userId, @Param("chapterId") Long chapterId);
 
 	Optional<ProblemSolveLog> findTopByUserIdAndProblemIdOrderByIdDesc(Long userId, Long problemId);
 

@@ -16,13 +16,13 @@ import com.example.domain.exception.SolveLogNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class SolveLogQueryService implements GetSolveDetailUseCase {
 
 	private final ProblemRepository problemRepository;
 	private final ProblemSolveLogRepository problemSolveLogRepository;
 
-	@Transactional(readOnly = true)
 	public SolveDetailResult getSolveDetail(Long userId, Long problemId) {
 		// 문제 존재 확인
 		Problem problem = problemRepository.findById(problemId)
