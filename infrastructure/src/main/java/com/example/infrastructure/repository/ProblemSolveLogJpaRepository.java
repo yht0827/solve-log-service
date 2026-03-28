@@ -15,7 +15,7 @@ public interface ProblemSolveLogJpaRepository extends JpaRepository<ProblemSolve
 	@Query("SELECT psl.problemId FROM ProblemSolveLog psl WHERE psl.userId = :userId")
 	List<Long> findSolvedProblemIdsByUserId(@Param("userId") Long userId);
 
-	Optional<ProblemSolveLog> findByUserIdAndProblemId(Long userId, Long problemId);
+	Optional<ProblemSolveLog> findTopByUserIdAndProblemIdOrderByIdDesc(Long userId, Long problemId);
 
 	@Query("SELECT COUNT(DISTINCT psl.userId) FROM ProblemSolveLog psl WHERE psl.problemId = :problemId")
 	long countDistinctUsersByProblemId(@Param("problemId") Long problemId);

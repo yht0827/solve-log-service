@@ -29,7 +29,7 @@ public class ProblemSolveLogRepositoryImpl implements ProblemSolveLogRepository 
 
 	@Override
 	public Optional<ProblemSolveLog> findByUserIdAndProblemId(Long userId, Long problemId) {
-		return jpaRepository.findByUserIdAndProblemId(userId, problemId);
+		return jpaRepository.findTopByUserIdAndProblemIdOrderByIdDesc(userId, problemId);
 	}
 
 	@Override
