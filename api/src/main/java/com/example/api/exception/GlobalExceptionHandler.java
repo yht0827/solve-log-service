@@ -5,12 +5,16 @@ import java.util.Objects;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.api.response.ErrorResponse;
-import com.example.domain.exception.DomainException;
+import com.example.domain.exception.ChapterNotFoundException;
+import com.example.domain.exception.NoAvailableProblemException;
+import com.example.domain.exception.ProblemNotFoundException;
+import com.example.domain.exception.SolveLogNotFoundException;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -20,10 +24,29 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(DomainException.class)
-	public ResponseEntity<ErrorResponse> handleDomainException(DomainException e) {
-		ErrorCode errorCode = ErrorCode.valueOf(e.getErrorCode().name());
-		return toResponseEntity(errorCode, e.getMessage());
+	@ExceptionHandler(ProblemNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleProblemNotFound(ProblemNotFoundException e) {
+		return toResponseEntity(ErrorCode.PROBLEM_NOT_FOUND, e.getMessage());
+	}
+
+	@ExceptionHandler(ChapterNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleChapterNotFound(ChapterNotFoundException e) {
+		return toResponseEntity(ErrorCode.CHAPTER_NOT_FOUND, e.getMessage());
+	}
+
+	@ExceptionHandler(SolveLogNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleSolveLogNotFound(SolveLogNotFoundException e) {
+		return toResponseEntity(ErrorCode.SOLVE_LOG_NOT_FOUND, e.getMessage());
+	}
+
+	@ExceptionHandler(NoAvailableProblemException.class)
+	public ResponseEntity<ErrorResponse> handleNoAvailableProblem(NoAvailableProblemException e) {
+		return toResponseEntity(ErrorCode.NO_AVAILABLE_PROBLEM, e.getMessage());
+	}
+
+	@ExceptionHandler(MissingRequestHeaderException.class)
+	public ResponseEntity<ErrorResponse> handleMissingHeader(MissingRequestHeaderException e) {
+		return toResponseEntity(ErrorCode.UNAUTHORIZED, ErrorCode.UNAUTHORIZED.getMessage());
 	}
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)
