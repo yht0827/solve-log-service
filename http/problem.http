@@ -1,133 +1,108 @@
 ### 랜덤 문제 조회 - 한국사 기초 (chapterId=1)
-GET {{baseUrl}}/api/v1/problems/random?chapterId=1&userId=1
+GET {{baseUrl}}/api/v1/problems/random?chapterId=1
+X-User-Id: 1
 
 ### 랜덤 문제 조회 - 세계 지리 (chapterId=2)
-GET {{baseUrl}}/api/v1/problems/random?chapterId=2&userId=1
+GET {{baseUrl}}/api/v1/problems/random?chapterId=2
+X-User-Id: 1
 
 ### 랜덤 문제 조회 - 존재하지 않는 단원 (404 예상)
-GET {{baseUrl}}/api/v1/problems/random?chapterId=999&userId=1
+GET {{baseUrl}}/api/v1/problems/random?chapterId=999
+X-User-Id: 1
 
 ### 랜덤 문제 조회 - 유효성 검사 실패 (chapterId 누락, 400 예상)
-GET {{baseUrl}}/api/v1/problems/random?userId=1
+GET {{baseUrl}}/api/v1/problems/random
+X-User-Id: 1
+
+### 랜덤 문제 조회 - 헤더 없음 (401 예상)
+GET {{baseUrl}}/api/v1/problems/random?chapterId=1
 
 ### 문제 건너뛰기 - 문제1 스킵 (chapterId=1)
 POST {{baseUrl}}/api/v1/problems/skip
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 1,
-  "userId": 1,
   "chapterId": 1
 }
 
 ### 문제 제출 - 단일선택 정답 (문제1: 조선 시대 왕이 아닌 인물 → 2번 광개토대왕)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 1,
-  "userId": 1,
-  "userAnswers": [
-    "2"
-  ]
+  "userAnswers": ["2"]
 }
 
 ### 문제 제출 - 단일선택 오답
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 1,
-  "userId": 1,
-  "userAnswers": [
-    "1"
-  ]
+  "userAnswers": ["1"]
 }
 
 ### 문제 제출 - 복수선택 정답 (문제2: 독립운동가 → 1·2·4번)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 2,
-  "userId": 1,
-  "userAnswers": [
-    "1",
-    "2",
-    "4"
-  ]
+  "userAnswers": ["1", "2", "4"]
 }
 
 ### 문제 제출 - 복수선택 부분 오답 (일부만 선택)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 2,
-  "userId": 1,
-  "userAnswers": [
-    "1",
-    "2"
-  ]
+  "userAnswers": ["1", "2"]
 }
 
 ### 문제 제출 - 복수선택 부분 오답 (정답+오답 혼합)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 2,
-  "userId": 1,
-  "userAnswers": [
-    "1",
-    "3"
-  ]
+  "userAnswers": ["1", "3"]
 }
 
 ### 문제 제출 - 주관식 정답 (문제3: 3·1운동 연도 → 1919)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 3,
-  "userId": 1,
-  "userAnswers": [
-    "1919"
-  ]
+  "userAnswers": ["1919"]
 }
 
 ### 문제 제출 - 주관식 오답
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 3,
-  "userId": 1,
-  "userAnswers": [
-    "1945"
-  ]
-}
-
-### 문제 제출 - 주관식 정답 (문제5: 세계에서 가장 넓은 나라 → 러시아)
-POST {{baseUrl}}/api/v1/problems/submit
-Content-Type: application/json
-
-{
-  "problemId": 5,
-  "userId": 1,
-  "userAnswers": [
-    "러시아"
-  ]
+  "userAnswers": ["1945"]
 }
 
 ### 문제 제출 - 존재하지 않는 문제 (404 예상)
 POST {{baseUrl}}/api/v1/problems/submit
 Content-Type: application/json
+X-User-Id: 1
 
 {
   "problemId": 999,
-  "userId": 1,
-  "userAnswers": [
-    "1"
-  ]
+  "userAnswers": ["1"]
 }

@@ -11,10 +11,6 @@ public record SubmitAnswerRequest(
 	@Positive(message = "problemId는 양수여야 합니다.")
 	Long problemId,
 
-	@NotNull(message = "userId는 필수입니다.")
-	@Positive(message = "userId는 양수여야 합니다.")
-	Long userId,
-
 	@NotEmpty(message = "userAnswers는 비어있을 수 없습니다.")
 	List<String> userAnswers
 ) {

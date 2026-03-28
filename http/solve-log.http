@@ -1,17 +1,26 @@
-### 풀이 상세 조회 - 문제1 (user1, 정답률 있음)
-GET {{baseUrl}}/api/v1/solve-logs?problemId=1&userId=1
+### 풀이 상세 조회 - 문제1 (정답률 있음)
+GET {{baseUrl}}/api/v1/solve-logs?problemId=1
+X-User-Id: 1
 
 ### 풀이 상세 조회 - 문제2
-GET {{baseUrl}}/api/v1/solve-logs?problemId=2&userId=1
+GET {{baseUrl}}/api/v1/solve-logs?problemId=2
+X-User-Id: 1
 
 ### 풀이 상세 조회 - 주관식 문제3
-GET {{baseUrl}}/api/v1/solve-logs?problemId=3&userId=1
+GET {{baseUrl}}/api/v1/solve-logs?problemId=3
+X-User-Id: 1
 
 ### 풀이 상세 조회 - 풀이 이력 없음 (404 예상)
-GET {{baseUrl}}/api/v1/solve-logs?problemId=4&userId=1
+GET {{baseUrl}}/api/v1/solve-logs?problemId=4
+X-User-Id: 1
 
 ### 풀이 상세 조회 - 존재하지 않는 문제 (404 예상)
-GET {{baseUrl}}/api/v1/solve-logs?problemId=999&userId=1
+GET {{baseUrl}}/api/v1/solve-logs?problemId=999
+X-User-Id: 1
 
-### 풀이 상세 조회 - 유효성 검사 실패 (userId=0, 400 예상)
-GET {{baseUrl}}/api/v1/solve-logs?problemId=1&userId=0
+### 풀이 상세 조회 - 헤더 없음 (401 예상)
+GET {{baseUrl}}/api/v1/solve-logs?problemId=1
+
+### 풀이 상세 조회 - 유효성 검사 실패 (problemId=0, 400 예상)
+GET {{baseUrl}}/api/v1/solve-logs?problemId=0
+X-User-Id: 1
